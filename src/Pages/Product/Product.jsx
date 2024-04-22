@@ -1,4 +1,4 @@
-import Navbar from "../../Components/Navbar";
+import Navbar from "../../Components/PageNav/Navbar";
 import styles from "./../Product.module.css";
 
 export default function Product() {
