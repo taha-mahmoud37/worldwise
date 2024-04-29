@@ -1,4 +1,9 @@
+/* eslint-disable no-unused-vars */
+import { useParams, useSearchParams } from "react-router-dom";
 import styles from "./City.module.css";
+import { useCities } from "../../Context/CityContext";
+import { useEffect } from "react";
+import BackButton from "../BackButton/BackButton";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -9,13 +14,22 @@ const formatDate = (date) =>
   }).format(new Date(date));
 
 function City() {
+  const {id} = useParams();
+  const{getCity, currentCity} = useCities();
+  // const [searchParams, setSerachParams] = useSearchParams();
+  // const lat = searchParams.get('lat');
+  // const lng = searchParams.get('lng');
+  useEffect(function() {
+    getCity(id);
+  }, [id])
+
   // TEMP DATA
-  const currentCity = {
-    cityName: "Lisbon",
-    emoji: "🇵🇹",
-    date: "2027-10-31T15:59:59.138Z",
-    notes: "My favorite city so far!",
-  };
+  // const currentCity = {
+  //   cityName: "Lisbon",
+  //   emoji: "🇵🇹",
+  //   date: "2027-10-31T15:59:59.138Z",
+  //   notes: "My favorite city so far!",
+  // };
 
   const { cityName, emoji, date, notes } = currentCity;
 
@@ -52,7 +66,7 @@ function City() {
       </div>
 
       <div>
-        <ButtonBack />
+       <BackButton />
       </div>
     </div>
   );
