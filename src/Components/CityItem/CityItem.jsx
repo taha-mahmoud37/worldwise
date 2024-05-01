@@ -11,16 +11,27 @@ const formatDate = (date) =>
   }).format(new Date(date));
 
 export default function CityItem({ city }) {
-  const{ currentCity } = useCities();
+  const { currentCity, deleteCity } = useCities();
   // eslint-disable-next-line react/prop-types, no-unused-vars
   const { cityName, emoji, date, id, position } = city;
+  function handelDeleteCity(e) {
+    e.preventDefault();
+    deleteCity(id)
+  }
   return (
-    <li >
-      <Link className={`${styles.cityItem} ${id === currentCity.id ? styles['cityItem--active'] : ''}`} to={`${id}?lat=${position.lat}&lng=${position.lng}`}>
+    <li>
+      <Link
+        className={`${styles.cityItem} ${
+          id === currentCity.id ? styles["cityItem--active"] : ""
+        }`}
+        to={`${id}?lat=${position.lat}&lng=${position.lng}`}
+      >
         <span className={styles.emoji}>{emoji}</span>
         <h2 className={styles.name}>{cityName}</h2>
         <time>{formatDate(date)}</time>
-        <button className={styles.deleteBtn}>&times;</button>
+        <button className={styles.deleteBtn} onClick={handelDeleteCity}>
+          &times;
+        </button>
       </Link>
     </li>
   );
