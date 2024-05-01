@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 
 const inintialState = {
   user: null,
@@ -36,7 +36,13 @@ function AuthProvider({ children }) {
       dispatch({ type: "login", payload: FAKE_USER });
   }
   function logout() {
-    dispatch({ type: "logout"});
+    dispatch({ type: "logout" });
   }
   return <AuthContext.Provider>{children}</AuthContext.Provider>;
+}
+
+function useAuth() {
+  const context = useContext(AuthContext);
+  if (context === undefined)
+    throw new Error("AuthContext was used outside AuthProvider");
 }
